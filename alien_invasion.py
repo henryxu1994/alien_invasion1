@@ -6,6 +6,8 @@ from settings import Settings
 
 import game_functions as gf
 
+from alien import Alien
+
 from pygame.sprite import Group
 
 
@@ -18,9 +20,14 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")
     #bg_color = (230, 230, 230)
     ship = Ship(ai_settings, screen)
+    alien = Alien(ai_settings, screen)
+
 
     bullets = Group()
+    aliens = Group()
 
+    #创建外星人群
+    gf.create_fleet(ai_settings, screen, ship, aliens)
 
     #开始游戏主循环
     while True:
@@ -29,7 +36,8 @@ def run_game():
         bullets.update()
         #删除已消失
         gf.update_bullet(bullets)
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_aliens(aliens)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 """
